@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JRC ITS Team Assignment Board</title>
@@ -489,6 +492,49 @@ tvBtn.addEventListener('click',()=>{board.classList.toggle('tv');tvBtn.textConte
 resetBtn.addEventListener('click',()=>{if(confirm('Reset all suite assignments, statuses, completion history, and priorities?')){team=structuredClone(initialTeam);suiteWork=emptySuiteWork();priorities=initialPriorities.map(label=>({label,complete:false}));save();render();}});
 save();
 setInterval(updateClock,1000);updateClock();render();
+</script>
+
+<script>
+// Automatically detect when GitHub Pages publishes a newer index.html.
+// Anyone who already has the dashboard open will reload within about 30 seconds.
+(function () {
+  const VERSION_KEY = 'jrc-dashboard-page-version';
+
+  async function checkForDashboardUpdate() {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('_updateCheck', Date.now().toString());
+
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        cache: 'no-store'
+      });
+
+      const version =
+        response.headers.get('etag') ||
+        response.headers.get('last-modified');
+
+      if (!version) return;
+
+      const previousVersion = sessionStorage.getItem(VERSION_KEY);
+
+      if (!previousVersion) {
+        sessionStorage.setItem(VERSION_KEY, version);
+        return;
+      }
+
+      if (previousVersion !== version) {
+        sessionStorage.setItem(VERSION_KEY, version);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log('Dashboard update check skipped:', error);
+    }
+  }
+
+  checkForDashboardUpdate();
+  setInterval(checkForDashboardUpdate, 30000);
+})();
 </script>
 </body>
 </html>

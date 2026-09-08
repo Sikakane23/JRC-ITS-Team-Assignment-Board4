@@ -48,6 +48,8 @@
     .priority-banner-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
     .priority-banner-title{font-weight:700;color:#2f5d35}
     .priority-banner-summary{font-size:13px;color:var(--muted)}
+    .priority-target{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;font-size:12px;font-weight:700;color:#2f5d35}
+    .priority-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .priority-banner-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 14px}
     .priority-banner-item{display:flex;align-items:center;gap:8px;font-size:13px;line-height:1.25}
     .priority-banner-item input{width:auto;accent-color:var(--accent)}
@@ -124,7 +126,7 @@
     @media(max-width:1100px){.metrics{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:800px){.grid,.bottom{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.suite-controls{grid-template-columns:1fr}}
       .priority-completed-date{margin-left:8px;color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap}
-  </style>
+</style>
 </head>
 <body>
 <div class="wrap" id="board">
@@ -154,7 +156,10 @@
 <section class="priority-banner">
 <div class="priority-banner-head">
 <div class="priority-banner-title">Project Priorities</div>
-<div class="priority-banner-summary" id="prioritySummary">3 of 8 complete</div>
+<div class="priority-meta">
+  <div class="priority-banner-summary" id="prioritySummary">3 of 8 complete</div>
+  <div class="priority-target">Target Completion: Friday 9/11</div>
+</div>
 </div>
 <div class="priority-banner-list" id="priorityBannerList"></div>
 </section>
@@ -257,8 +262,8 @@ const initialPriorities = [
   'Move equipment and supplies into the clinic',
   'Unpack and organize hardware by suite',
   'Install computers and peripherals',
-  'Install phones',
-  'Install printers',
+  'Install and configure phones',
+  'Setup and configure printers',
   'Validate network and application connectivity',
   'Confirm printing and device readiness',
   'Complete final walkthrough for Suites A–E'
@@ -464,9 +469,9 @@ function renderPriorities(){
       completionDate = '<span class="priority-completed-date">Completed on 9/6</span>';
     } else if (p.label==='Validate network and application connectivity') {
       completionDate = '<span class="priority-completed-date">Completed on 9/6</span>';
-    } else if (p.label==='Install phones') {
+    } else if (p.label==='Install and configure phones') {
       completionDate = '<span class="priority-completed-date">Scheduled for 9/10</span>';
-    } else if (p.label==='Install printers') {
+    } else if (p.label==='Setup and configure printers') {
       completionDate = '<span class="priority-completed-date">In progress</span>';
     }
     return `
